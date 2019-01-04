@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const request = require('request')
+const weka = require('node-weka/mi_libreria11+');
 
+const arff = require('arff');
 
 
 router.post('/insertar_accion_notificaciones', async (req, res) => {
@@ -28,7 +30,72 @@ router.post('/insertar_accion_notificaciones', async (req, res) => {
     res.json({ status: 'Accion guardada' })
 })
 
-router.get('/todos_sensores_v2', async (req, res) => {  
+router.get('/insertar_weka', async (req, res) => {
+    console.log('ENTRA EN EL ROUTER CORRECTO')
+    
+    var readFile = require('fs').readFile;
+ 
+    readFile('iris.arff', 'utf8', function (error, content) {
+      if (error) {
+        return console.error(error);
+      }
+      console.log("NO HAY ERROR")
+      console.log(content);
+      var data = content;
+  /*
+  // find out some info about the field "age"
+  var oldest = data.max('age');
+  var youngest = data.min('age');
+  var mostcommon = data.mode('age');
+  var average = data.mean('age');
+
+  // normalize the data (scale all numeric values so that they are between 0 and 1)
+  data.normalize();
+
+  // randomly sort the data
+  //data.randomize();
+  */
+
+ var options = {
+    //'classifier': 'weka.classifiers.bayes.NaiveBayes',
+    'classifier': 'weka.classifiers.trees.J48',
+    'params'    : ''
+    };
+
+    var testData = {
+        sepalwidth    : 3,
+        petallength      : 1,
+        petalwidth: 30,
+        sepallength   : 2,
+        /*
+        class       : 'no' // last is class attribute
+        */
+    };
+    console.log("WEKA : ")
+  
+    console.log(weka);
+    console.log("El test es : " + testData)
+    weka.predict("C:/Users/Marcos Lupion/Desktop/iris-model.model", testData, options, function (err, result) {
+        console.log("El resultado es : ")
+        console.log(result);
+        console.log(err);
+    res.json({ status: result })
+    
+    });
+})
+
+
+    //See Weka Documentation
+    
+            
+    
+    //res.json({ status: 'Accion guardada' })
+})
+
+
+
+
+router.post('/todos_sensores_v2', async (req, res) => {  
     console.log("Entra para buscar todos los sensores");
     
     //inicio de sesión

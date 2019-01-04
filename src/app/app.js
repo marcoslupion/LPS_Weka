@@ -6,36 +6,32 @@ class App extends Component {
     constructor() {
         super()
         this.state = {
-            title: '',    
+            title: '', 
+            nombre_accion: '',      
             tasks: [],           
         }
-        this.buscar_actualizaciones = this.buscar_actualizaciones.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.insertar_datos_weka = this.insertar_datos_weka.bind(this)
 
     }
     componentDidMount() {
-        //this.todos_sensores()
-        //this.devolver_acciones()
+        this.insertar_datos_weka()
+        
     }
     handleChange() {
        // this.todos_sensores()
         //this.devolver_acciones()
     }
-    buscar_actualizaciones() {
+    insertar_datos_weka() {
         console.log('Se llama a la funcion jajaja')
        
         console.log('a ver si llega')
-        fetch('/buscar_notificaciones')
+        fetch('/insertar_weka')
             .then(res => res.json())
             .then(data => {
-                console.log('HAY ACTUALIZACIONES::')
-                console.log(data.cambio)
-                var hay = data.cambio
-                if (hay) {
-                    console.log('Se han encontrado actualizaciones en los datos de los sensores')
-                } else {
-                }
-                this.forceUpdate()
+                console.log("Entra en la funcion de la ruta")
+                console.log(data.status)
+                
             })
     }
 

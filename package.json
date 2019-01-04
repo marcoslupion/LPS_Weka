@@ -12,9 +12,12 @@
   "author": "@marcos_lupion",
   "license": "ISC",
   "dependencies": {
+    "arff": "^0.1.1",
     "express": "^4.16.4",
     "mongoose": "^5.4.0",
     "morgan": "^1.9.1",
+    "node-arff": "^1.1.0",
+    "node-weka": "0.0.8",
     "react-js-pagination": "^3.0.2",
     "request": "^2.88.0"
   },
