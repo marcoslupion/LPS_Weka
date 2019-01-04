@@ -1,0 +1,43 @@
+.notificacion{
+  padding: 10px;
+  border-bottom: 2px;
+  cursor: pointer;
+}
+
+
+.accion{
+  background-color: #eeeeee;
+  padding : 10px !important;
+  margin: 10px !important;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.centrar_verticalmente{
+  
+  display: flex;
+  align-items: center;
+}
+
+.accion:nth-child(even) {
+  background: #fcebea;
+}
+.contenedor_acciones{
+  text-align: center;
+  margin: 0px;
+    min-height: 218.500px;
+
+}
+
+.paginator{
+  text-align: center;
+}
+
+
+.toast{
+border-radius: 10px;
+
+
+}
