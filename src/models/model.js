@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+var Schema = mongoose.Schema;
 
-const TaskSchema = new Schema({
-    title : {type:String, required:true},
-    description : {type:String,required:true}
+const Clasificacion = new Schema({
+    sep_long : {type:Number, required:true},
+    sep_anch : {type:Number, required:true},
+    pet_long : {type:Number, required:true},
+    pet_anch : {type:Number, required:true},
+    hora :     {type:Date,required:true},
+    clasificacion : {type:String,required:true}
 })
 
-module.export = mongoose.model('Task', TaskSchema);
+module.exports = mongoose.model('Clasificacion', Clasificacion);
