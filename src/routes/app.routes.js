@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const request = require('request')
-const weka = require('node-weka/mi_libreria11+');
+const weka = require('node-weka/mi_libreria12');
 
 const arff = require('arff');
 
@@ -32,16 +32,7 @@ router.post('/insertar_accion_notificaciones', async (req, res) => {
 
 router.get('/insertar_weka', async (req, res) => {
     console.log('ENTRA EN EL ROUTER CORRECTO')
-    
-    var readFile = require('fs').readFile;
- 
-    readFile('iris.arff', 'utf8', function (error, content) {
-      if (error) {
-        return console.error(error);
-      }
-      console.log("NO HAY ERROR")
-      console.log(content);
-      var data = content;
+  
   /*
   // find out some info about the field "age"
   var oldest = data.max('age');
@@ -56,6 +47,7 @@ router.get('/insertar_weka', async (req, res) => {
   //data.randomize();
   */
 
+  /*
  var options = {
     //'classifier': 'weka.classifiers.bayes.NaiveBayes',
     'classifier': 'weka.classifiers.trees.J48',
@@ -69,28 +61,79 @@ router.get('/insertar_weka', async (req, res) => {
         sepallength   : 2,
         /*
         class       : 'no' // last is class attribute
-        */
+        
     };
     console.log("WEKA : ")
   
     console.log(weka);
     console.log("El test es : " + testData)
-    weka.predict("C:/Users/Marcos Lupion/Desktop/iris-model.model", testData, options, function (err, result) {
+    weka.predict('C:/Users/"Marcos Lupion"/Desktop/iris-model.model', testData, options, function (err, result) {
         console.log("El resultado es : ")
         console.log(result);
         console.log(err);
-    res.json({ status: result })
+        */
+    res.json({ status: "hola bro" })
+
+    var fs = require('fs');
+    var archivo = `@RELATION iris\n@ATTRIBUTE sepallength REAL\n@ATTRIBUTE sepalwidth REAL\n@ATTRIBUTE petallength REAL\n@ATTRIBUTE petalwidth	REAL\n@ATTRIBUTE class {Iris-setosa,Iris-versicolor,Iris-virginica}\n@DATA\n`
+    console.log("El archivo por ahora es : ");
+    console.log(archivo);
+
+    fs.appendFile('mynewfile1.txt', archivo, function (err) {
+        if (err) throw err;
+        console.log('Saved1 !');
+      });
+
+    fs.appendFile('mynewfile1.txt', '5.1,3.5,1.4,100,?', function (err) {
+        if (err) throw err;
+        console.log('Saved 2!');
+      });
+
+
+    var consulta = 'java -classpath C:/Users/"Marcos Lupion"/Desktop/weka/weka.jar weka.classifiers.trees.J48 -T C:/Users/"Marcos Lupion"/Desktop/prediccion.arff -l C:/Users/"Marcos Lupion"/Desktop/modelo.model -p 0';
+
+    var exec = require('child_process').exec;
+
+    var child;
+    child = exec(consulta,function (error, stdout, stderr) {
+        //console.log(error);
+        console.log(stdout);
+        //console.log(stderr);
+
     
     });
-})
 
+    fs.unlink('mynewfile1.txt', function (err) {
+        if (err) throw err;
+        console.log('File deleted!');
+      });
+
+})
+/*
+java -classpath C:/Users/"Marcos Lupion"/Desktop/weka/weka.jar weka.classifiers.trees.J48 -l C:/Users/"Marcos Lupion"/Desktop/iris-model.model -T C:/Users/"Marcos Lupion"/Documents/LPS_Weka/iris.arff
+
+//esto genera la clasificacion inicial a partir de la bd de iris.arff
+java -classpath C:/Users/"Marcos Lupion"/Desktop/weka/weka.jar weka.classifiers.trees.J48 -t C:/Users/"Marcos Lupion"/Documents/LPS_Weka/iris.arff
+
+java -classpath C:/Users/"Marcos Lupion"/Desktop/weka/weka.jar weka.classifiers.trees.J48 -T C:/Users/"Marcos Lupion"/Desktop/prediccion.arff -l C:/Users/"Marcos Lupion"/Desktop/iris-model.model
+
+//esto se seupone que es para ver de qe clase es usandoel modelo
+java -classpath C:/Users/"Marcos Lupion"/Desktop/weka/weka.jar weka.classifiers.trees.J48 -T C:/Users/"Marcos Lupion"/Desktop/prediccion.arff -l C:/Users/"Marcos Lupion"/Desktop/iris-model.model
+
+//esto hace prediccion correcta sobre el conjunto de datos de entrenamiento
+java -classpath C:/Users/"Marcos Lupion"/Desktop/weka/weka.jar weka.classifiers.trees.J48 -T C:/Users/"Marcos Lupion"/Desktop/prediccion.arff -t C:/Users/"Marcos Lupion"/Desktop/iris.arff -p 0
+
+/correcto el modelo que raliza la prediccion
+java -classpath C:/Users/"Marcos Lupion"/Desktop/weka/weka.jar weka.classifiers.trees.J48 -T C:/Users/"Marcos Lupion"/Desktop/prediccion.arff -l C:/Users/"Marcos Lupion"/Desktop/modelo.model -p 0
+
+*/
 
     //See Weka Documentation
     
             
     
     //res.json({ status: 'Accion guardada' })
-})
+
 
 
 
