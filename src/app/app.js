@@ -66,6 +66,10 @@ class App extends Component {
                     console.log(data.clase)
                     this.state.clase = data.clase
                     this.obtener_historial();
+                    this.state.pet_anch = '';
+                    this.state.pet_long = '';
+                    this.state.sep_anch = '';
+                    this.state.sep_long ='';
                     this.forceUpdate()
                     M.toast({ html: 'Se ha obtenido la clase : ' + data.clase, classes: 'toast' })
                 })
@@ -74,59 +78,67 @@ class App extends Component {
         }
     }
 
-    devolver_notificaciones_siguientes(id_sensor, saltadas) {
-        fetch(`/notificaciones/${id_sensor}/${saltadas}`)
-            .then(res => res.json())
-            .then(data => {
-                console.log('ESTO ES LO QUE TIENE LA VARIABLE DE notificaciones devuelta:')
-                console.log(data.notificaciones)
-                //this.setState({ not: data.notificaciones })
 
-                this.forceUpdate()
-            })
-    }
 
     render() {
         return (
             <div>
-                <h4>Clasificar</h4>
+                <nav className="light-blue darken-4">
+                    <div className="container">
+                        <div className="nav-wrapper azul">
+                            <a href="#" className="brand-logo">Clasificación REST</a>
+                        </div>
+                    </div>
+                </nav>
+                <div className="row">
                 {/* NAVIGATION */}
-                <div className="col s12">
+                <div className="col s6">
                     <div className="card paginator">
-                        <h5>Insertar acción</h5>
+                        <h5>Instancia a clasificar</h5>
                         <div className="card-content">
                             <form onSubmit={this.insertar_datos_weka}>
                                 <div className="row">
-                                    <div className="input-field col s12">
+                                    <div className=" col s12">
                                         <input name="sep_long" onChange={this.handleChange} value={this.state.sep_long} type="number" placeholder="Introduce la longitud del sepalo" autoFocus />
                                     </div>
-                                    <div className="input-field col s12">
-                                        <input name="sep_anch" onChange={this.handleChange} value={this.state.sep_anch} type="number" placeholder="Introduce la anchura del sepalo" autoFocus />
+                                    <div className="col s12">
+                                        <input name="sep_anch" onChange={this.handleChange} value={this.state.sep_anch} type="number" placeholder="Introduce la anchura del sepalo"  />
                                     </div>
-                                    <div className="input-field col s12">
-                                        <input name="pet_long" onChange={this.handleChange} value={this.state.pet_long} type="number" placeholder="Introduce la longitud del petalo" autoFocus />
+                                    <div className=" col s12">
+                                        <input name="pet_long" onChange={this.handleChange} value={this.state.pet_long} type="number" placeholder="Introduce la longitud del petalo"  />
                                     </div>
-                                    <div className="input-field col s12">
-                                        <input name="pet_anch" onChange={this.handleChange} value={this.state.pet_anch} type="number" placeholder="Introduce la anchura del petalo" autoFocus />
+                                    <div className=" col s12">
+                                        <input name="pet_anch" onChange={this.handleChange} value={this.state.pet_anch} type="number" placeholder="Introduce la anchura del petalo"  />
                                     </div>
                                 </div>
                                 <button type="submit" className="btn light-blue darken-4">
-                                    Insertar a lista
+                                    Clasificar instancia
                                 </button>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div className="col s12">
-                    <h4>Clase de la instancia introducida</h4>
-                    <h6>{this.state.clase}</h6>
+                <div className="col s6 paginator">
+                    <h5>Clase de la instancia introducida</h5>
+                    <h3 className="paginator">{this.state.clase}</h3>
                 </div>
-                <div className="col s12">
-                    <h4>Historial</h4>
-                    {Object.keys(this.state.historial).map(clave => (
-                        <div >{this.state.historial[clave].hora}   {this.state.historial[clave].clasificacion}</div>
-                    ))}
                 </div>
+                <div className="row">
+                    <div className="col s4"></div>
+                    <div className="col s4">
+                        <h5 className="paginator">Historial</h5>
+                        {Object.keys(this.state.historial).map(clave => (
+                            <div className="historial">
+                                    <div className="col s6 paginator">{this.state.historial[clave].fecha_parseada}   </div>
+                                    <div className="col s6 paginator"><i>{this.state.historial[clave].clasificacion}</i></div>
+
+
+                            </div>
+                        ))}
+                    </div>
+                    <div className="col s4"></div>
+                </div>
+
             </div>
         )
     }

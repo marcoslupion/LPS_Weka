@@ -7,6 +7,7 @@ const Clasificacion = new Schema({
     pet_long : {type:Number, required:true},
     pet_anch : {type:Number, required:true},
     hora :     {type:Date,required:true},
+    fecha_parseada :     {type:String,required:true},
     clasificacion : {type:String,required:true}
 })
 

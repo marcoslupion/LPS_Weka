@@ -5,7 +5,7 @@
 }
 
 
-.accion{
+.historial{
   background-color: #eeeeee;
   padding : 10px !important;
   margin: 10px !important;
@@ -21,7 +21,7 @@
   align-items: center;
 }
 
-.accion:nth-child(even) {
+.historial:nth-child(even) {
   background: #fcebea;
 }
 .contenedor_acciones{
@@ -40,4 +40,8 @@
 border-radius: 10px;
 
 
+}
+
+.azul{
+  background-color: #01579b !important;
 }

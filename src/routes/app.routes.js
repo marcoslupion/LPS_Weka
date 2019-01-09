@@ -78,8 +78,20 @@ router.post('/insertar_weka', async (req, res) => {
         }else{
             devolver = "Iris Versicolor";
         }
-        var fecha = new Date();
-        const data = { sep_long: sep_long, sep_anch : sep_anch , pet_long : pet_long ,pet_anch : pet_anch ,  clasificacion : devolver, hora : fecha }
+        var fecha_parseada = new Date();
+
+        var dia = ""+fecha_parseada.getDate()<10 ? "0"+fecha_parseada.getDate() : fecha_parseada.getDate();
+        var mes = ""+fecha_parseada.getMonth()<10 ? ""+fecha_parseada.getMonth()+1 : fecha_parseada.getMonth()+1;
+        var año = fecha_parseada.getFullYear();
+        var hora = ""+fecha_parseada.getHours()<10 ? "0"+fecha_parseada.getHours() : fecha_parseada.getHours();
+        var minuto = ""+fecha_parseada.getMinutes()<10 ? "0"+fecha_parseada.getMinutes() : fecha_parseada.getMinutes();
+        var segundo = ""+fecha_parseada.getSeconds()<10 ? "0"+fecha_parseada.getSeconds() : fecha_parseada.getSeconds();
+        var mili =      fecha_parseada.getMilliseconds();
+        console.log(fecha_parseada);
+        var fecha_parseada_string = dia+"/"+mes+"/"+año+" "+hora+":"+minuto+":"+segundo+"."+mili;
+        console.log(fecha_parseada_string);
+
+        const data = { sep_long: sep_long, sep_anch : sep_anch , pet_long : pet_long ,pet_anch : pet_anch ,  clasificacion : devolver, hora : fecha_parseada, fecha_parseada : fecha_parseada_string }
         var clas = new Clasificacion(data);  
         /*      
         clas.sep_long = sep_long ;  
